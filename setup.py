@@ -64,7 +64,3 @@ setup(
     cmdclass = {'test': PyTest},
     entry_points={},
 )
-
-install_requires = (
-    'requests==2.4.3',
-)
