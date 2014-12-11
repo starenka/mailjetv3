@@ -93,22 +93,30 @@ class Config(object):
 class Endpoint(object):
 
     def __init__(self, url, doc, auth):
-        self.url, self.doc, self.auth = url, doc, auth
+        self._url, self._doc, self._auth = url, doc, auth
 
     def __doc__(self):
-        return self.doc
+        return self._doc
 
-    def get(self, res_id=None, **kwargs):
-        return api_call(self.auth, 'get', self.url, resource_id=res_id, **kwargs)
+    def _get(self, res_id=None, **kwargs):
+        return api_call(self._auth, 'get', self._url, resource_id=res_id, **kwargs)
+
+    def get_many(self, **kwargs):
+        return self._get(**kwargs)
+
+    def get(self, res_id, **kwargs):
+        return self._get(res_id, **kwargs)
 
     def create(self, data, **kwargs):
-        return api_call(self.auth, 'post', self.url, data=data, **kwargs)
+        return api_call(self._auth, 'post', self._url, data=data, **kwargs)
+
+    new = create
 
     def update(self, res_id, data, **kwargs):
-        return api_call(self.auth, 'put', self.url, resource_id=res_id, data=data, **kwargs)
+        return api_call(self._auth, 'put', self._url, resource_id=res_id, data=data, **kwargs)
 
     def delete(self, res_id, **kwargs):
-        return api_call(self.auth, 'delete', self.url, resource_id=res_id, **kwargs)
+        return api_call(self._auth, 'delete', self._url, resource_id=res_id, **kwargs)
 
 
 class Client(object):
