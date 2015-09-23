@@ -10,85 +10,19 @@ from requests.compat import urljoin
 requests.packages.urllib3.disable_warnings()
 
 class Config(object):
-    API_URL = 'https://api.mailjet.com/v3/REST/'
+    API_URL = 'https://api.mailjet.com/v3/'
     API_DOC = 'http://dev.mailjet.com/email-api/v3/'
-    API_PATHS = {  # our_name:API_URL+part (http://dev.mailjet.com/email-api/v3/%s)
-        # api
-        'ApiKey': 'apikey',
-        'ApiKeyAccess': 'apikeyaccess',
-        'ApiKeyTotals': 'apikeytotals',
-        'ApiToken': 'apitoken',
-        'Metadata': 'metadata',
-        # account
-        'MetaSender': 'metasender',
-        'MyProfile': 'myprofile',
-        'Sender': 'sender',
-        'User': 'user',
-        # domain settings
-        'DomainStats': 'domainstatistics',
-        'ParseRoute': 'parseroute',
-        # campaigns
-        'BounceStats': 'bouncestatistics',
-        'Campaign': 'campaign',
-        'CampaignAggregate': 'campaignaggregate',
-        'CampaignGraphStats': 'campaigngraphstatistics',
-        'CampaignOverview': 'campaignoverview',
-        'CampaignStats': 'campaignstatistics',
-        'ClickStats': 'clickstatistics',
-        'Preferences': 'preferences',
-        'Trigger': 'trigger',
-        # contact list
-        'Aggregategraphstatistics': 'aggregategraphstatistics',
-        'Contact': 'contact',
-        'ContactData': 'contactdata',
-        'ContactFilter': 'contactfilter',
-        'ContactHistoryData': 'contacthistorydata',
-        'ContactMetadata': 'contactmetadata',
-        'Contactslist': 'contactslist',
-        'ContactsListSignup': 'contactslistsignup',
-        'ContactStats': 'contactstatistics',
-        'CSVImport': 'csvimport',
-        'GEOStats': 'geostatistics',
-        'GraphStats': 'graphstatistics',
-        'ListRecipient': 'listrecipient',
-        'ListRecipientstatistics': 'listrecipientstatistics',
-        'ListStats': 'liststatistics',
-        'ManyContacts': 'manycontacts',
-        # messages
-        'Message': 'message',
-        'MessageHistory': 'messagehistory',
-        'MessageInformation': 'messageinformation',
-        'MessageSentStats': 'messagesentstatistics',
-        'MessageState': 'messagestate',
-        'MessageStats': 'messagestatistics',
-        # newsletter
-        'AXTesting': 'axtesting',
-        'Batchjob': 'batchjob',
-        'Newsletter': 'newsletter',
-        'NewsletterTemplate': 'newslettertemplate',
-        'NewsletterTemplateCategory': 'newslettertemplatecategory',
-        # events
-        'EventCallbackURL': 'eventcallbackurl',
-        'OpenInformation': 'openinformation',
-        'OpenStats': 'openstatistics',
-        'SenderStats': 'senderstatistics',
-        'ToplinkClicked': 'toplinkclicked',
-        'UseragentStats': 'useragentstatistics',
-        # widget
-        'Widget': 'widget',
-        'WidgetCustomValue': 'widgetcustomvalue',
-
-    }
-
-    ENDPOINTS = API_PATHS.keys()
 
     def __getitem__(self, key):
-        try:
-            path = self.API_PATHS[key]
-            return urljoin(self.API_URL, path), urljoin(self.API_DOC, path)
-        except KeyError:
-            raise NotImplementedError('Endpoint "%s" is not implemented. Valid endpoints: %s' %
-                                      (key, self.ENDPOINTS))
+        url = self.API_URL[0:]
+        if key != 'Send':
+            url = urljoin(url, 'REST')
+        elif key == 'Contactslist_csvdata':
+            url = urljoin(url, 'DATA')
+        elif key == 'Batchjob_csverror':
+            url = urljoin(url, 'DATA')
+        url = url + '/' + key
+        return url, urljoin(self.API_DOC, key)
 
 
 class Endpoint(object):
@@ -113,45 +47,42 @@ class Endpoint(object):
 
     new = create
 
-    def update(self, res_id, data, filters=None, action_id=None, **kwargs):
-        return api_call(self._auth, 'put', self._url, resource_id=res_id, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
+    def update(self, id, data, filters=None, action_id=None, **kwargs):
+        return api_call(self._auth, 'put', self._url, resource_id=id, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
-    def delete(self, res_id, **kwargs):
-        return api_call(self._auth, 'delete', self._url, action=self.action, action_id=action_id, resource_id=res_id, **kwargs)
+    def delete(self, id, **kwargs):
+        return api_call(self._auth, 'delete', self._url, action=self.action, action_id=action_id, resource_id=id, **kwargs)
 
 
 class Client(object):
 
     def __init__(self, auth=None, config=Config()):
         self.auth, self.config = auth, config
-        self.endpoints = self.config.ENDPOINTS
-
-    def __dir__(self):
-        return self.endpoints
 
     def __getattr__(self, name):
         split = name.split('_')
-        name = split[0]
+        name = split[0].capitalize()
+        action = None
         if (len(split) > 1):
             action = split[1]
-        if name in self.endpoints:
-            url, doc = self.config[name]
-            return type(name, (Endpoint,), {})(url=url, doc=doc, action=action, auth=self.auth)
-        raise AttributeError
+        url, doc = self.config[name]
+        return type(name, (Endpoint,), {})(url=url, doc=doc, action=action, auth=self.auth)
 
 
 def api_call(auth, method, url, data=None, filters=None, resource_id=None, extra_headers=None,
              timeout=60, debug=False, action=None, action_id=None, **kwargs):
     url = build_url(url, method=method, action=action, resource_id=resource_id, action_id=action_id)
-    print method, url, data
     headers = build_headers(extra_headers)
     req_method = getattr(requests, method)
 
+    # url = 'http://requestb.in/1emzll91'
+
     try:
-        response = req_method(url, data=data, params=filters, headers=headers, auth=auth,
+        response = req_method(url, data=json.dumps(data), params=filters, headers=headers, auth=auth,
                               timeout=timeout, verify=False, stream=False)
 
-        return parse_response(response, debug=debug)
+        # return parse_response(response, debug=debug)
+        return response
 
     except requests.exceptions.Timeout:
         raise TimeoutError
@@ -174,7 +105,7 @@ def build_headers(extra_headers=None):
 
 def build_url(url, method, action=None, resource_id=None, action_id=None):
     if resource_id:
-        url += '/%d' % resource_id
+        url += '/%s' % str(resource_id)
     if action:
         url += '/%s' % action
         if action_id:
