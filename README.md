@@ -43,5 +43,5 @@ result = mailjet.sender.post(data={'email': 'test@mailjet.com'})
 ## Combine an resource with an action
 ``` python
 # Get the contact lists of contact #2
-result = mailjet.Contact_getcontactslists(id=2)
+result = mailjet.contact_getcontactslists.get(id=2)
 ```

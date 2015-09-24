@@ -61,7 +61,7 @@ class Client(object):
 
     def __getattr__(self, name):
         split = name.split('_')
-        name = split[0].capitalize()
+        name = split[0]
         action = None
         if (len(split) > 1):
             action = split[1]
