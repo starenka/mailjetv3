@@ -16,12 +16,12 @@ class Config(object):
     def __getitem__(self, key):
         url = self.API_URL[0:]
         if key != 'Send':
-            url = urljoin(url, 'REST')
+            url = urljoin(url, 'REST/')
         elif key == 'Contactslist_csvdata':
-            url = urljoin(url, 'DATA')
+            url = urljoin(url, 'DATA/')
         elif key == 'Batchjob_csverror':
-            url = urljoin(url, 'DATA')
-        url = url + '/' + key
+            url = urljoin(url, 'DATA/')
+        url = url + key.lower()
         return url, urljoin(self.API_DOC, key)
 
 
