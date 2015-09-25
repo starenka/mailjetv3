@@ -45,3 +45,18 @@ result = mailjet.sender.post(data={'email': 'test@mailjet.com'})
 # Get the contact lists of contact #2
 result = mailjet.contact_getcontactslists.get(id=2)
 ```
+
+## Send an Email
+``` python
+
+email = {
+	'FromName': 'Mr Smith',
+	'FromEmail': 'mr@smith.com',
+	'Subject': 'Test Email',
+	'Text-Part': 'Hey there !',
+	'Recipients': [{'Email': 'your email here'}]
+}
+
+mailjet.send.post(email)
+
+```
