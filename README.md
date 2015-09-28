@@ -2,13 +2,13 @@
 
 ## Getting Started
 
-First, make sure you have an API key, and an API secret.
-Once you got them, save them in your environment:
-
 ### API documentation
 
 Find out more about the Mailjet API: http://dev.mailjet.com/
 
+
+First, make sure you have an API key, and an API secret.
+Once you got them, save them in your environment:
 
 ```
 export MJ_APIKEY_PUBLIC='your api key'
