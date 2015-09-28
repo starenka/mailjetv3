@@ -15,7 +15,7 @@ class Config(object):
 
     def __getitem__(self, key):
         url = self.API_URL[0:]
-        if key != 'Send':
+        if key.lower() != 'send':
             url = urljoin(url, 'REST/')
         elif key == 'Contactslist_csvdata':
             url = urljoin(url, 'DATA/')
@@ -46,6 +46,7 @@ class Endpoint(object):
         return api_call(self._auth, 'post', self._url, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
     new = create
+    post = create
 
     def update(self, id, data, filters=None, action_id=None, **kwargs):
         return api_call(self._auth, 'put', self._url, resource_id=id, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
@@ -75,7 +76,7 @@ def api_call(auth, method, url, data=None, filters=None, resource_id=None, extra
     headers = build_headers(extra_headers)
     req_method = getattr(requests, method)
 
-    # url = 'http://requestb.in/1emzll91'
+# url = 'http://requestb.in/1fuplcz1'
 
     try:
         response = req_method(url, data=json.dumps(data), params=filters, headers=headers, auth=auth,

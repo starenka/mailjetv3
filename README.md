@@ -5,6 +5,11 @@
 First, make sure you have an API key, and an API secret.
 Once you got them, save them in your environment:
 
+### API documentation
+
+Find out more about the Mailjet API: http://dev.mailjet.com/
+
+
 ```
 export MJ_APIKEY_PUBLIC='your api key'
 export MJ_APIKEY_PRIVATE='your api secret'
@@ -59,4 +64,14 @@ email = {
 
 mailjet.send.post(email)
 
+```
+
+## Create a new Contact
+``` python
+
+# wrapping the call inside a function
+def new_contact(email):
+	return mailjet.contact.new(data={'Email': email})
+
+new_contact('mr@smith.com')
 ```
