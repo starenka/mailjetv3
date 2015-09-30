@@ -15,26 +15,29 @@ class Config(object):
 
     def __getitem__(self, key):
         url = self.API_URL[0:]
-        if key.lower() != 'send':
+        headers = {'Content-type': 'application/json'}
+        if key.lower() == 'contactslist_csvdata':
+            url = urljoin(url, 'DATA/')
+            headers = {'Content-type': 'text/plain'}
+        elif key.lower() == 'batchjob_csverror':
+            url = urljoin(url, 'DATA/')
+            headers = {'Content-type': 'text/csv'}
+        elif key.lower() != 'send':
             url = urljoin(url, 'REST/')
-        elif key == 'Contactslist_csvdata':
-            url = urljoin(url, 'DATA/')
-        elif key == 'Batchjob_csverror':
-            url = urljoin(url, 'DATA/')
-        url = url + key.lower()
-        return url, urljoin(self.API_DOC, key)
+        url = url + key.split('_')[0].lower()
+        return url, headers
 
 
 class Endpoint(object):
 
-    def __init__(self, url, doc, auth, action=None):
-        self._url, self._doc, self._auth, self.action = url, doc, auth, action
+    def __init__(self, url, headers, auth, action=None):
+        self._url, self.headers, self._auth, self.action = url, headers, auth, action
 
     def __doc__(self):
         return self._doc
 
     def _get(self, filters=None, action_id=None, id=None, **kwargs):
-        return api_call(self._auth, 'get', self._url, action=self.action, action_id=action_id, filters=filters, resource_id=id, **kwargs)
+        return api_call(self._auth, 'get', self._url, headers=self.headers, action=self.action, action_id=action_id, filters=filters, resource_id=id, **kwargs)
 
     def get_many(self, filters=None, action_id=None, **kwargs):
         return self._get(filters=filters, **kwargs)
@@ -42,17 +45,17 @@ class Endpoint(object):
     def get(self, id=None, filters=None, action_id=None, **kwargs):
         return self._get(id=id, filters=filters, **kwargs)
 
-    def create(self, data, filters=None, action_id=None, **kwargs):
-        return api_call(self._auth, 'post', self._url, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
+    def create(self, data, filters=None, id=None, action_id=None, **kwargs):
+        return api_call(self._auth, 'post', self._url, headers=self.headers, resource_id=id, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
     new = create
     post = create
 
     def update(self, id, data, filters=None, action_id=None, **kwargs):
-        return api_call(self._auth, 'put', self._url, resource_id=id, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
+        return api_call(self._auth, 'put', self._url, resource_id=id, headers=self.headers, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
     def delete(self, id, **kwargs):
-        return api_call(self._auth, 'delete', self._url, action=self.action, action_id=action_id, resource_id=id, **kwargs)
+        return api_call(self._auth, 'delete', self._url, action=self.action, headers=self.headers, action_id=action_id, resource_id=id, **kwargs)
 
 
 class Client(object):
@@ -62,18 +65,21 @@ class Client(object):
 
     def __getattr__(self, name):
         split = name.split('_')
-        name = split[0]
+        fname = split[0]
         action = None
         if (len(split) > 1):
             action = split[1]
-        url, doc = self.config[name]
-        return type(name, (Endpoint,), {})(url=url, doc=doc, action=action, auth=self.auth)
+            if action == 'csvdata':
+				action = 'csvdata/text:plain'
+            if action == 'csverror':
+				action = 'csverror/text:csv'
+        url, headers = self.config[name]
+        return type(fname, (Endpoint,), {})(url=url, headers=headers, action=action, auth=self.auth)
 
 
-def api_call(auth, method, url, data=None, filters=None, resource_id=None, extra_headers=None,
+def api_call(auth, method, url, headers, data=None, filters=None, resource_id=None,
              timeout=60, debug=False, action=None, action_id=None, **kwargs):
     url = build_url(url, method=method, action=action, resource_id=resource_id, action_id=action_id)
-    headers = build_headers(extra_headers)
     req_method = getattr(requests, method)
 
 # url = 'http://requestb.in/1fuplcz1'
@@ -95,8 +101,13 @@ def api_call(auth, method, url, data=None, filters=None, resource_id=None, extra
         raise
 
 
-def build_headers(extra_headers=None):
+def build_headers(resource, action=None):
     headers = {'Content-type': 'application/json'}
+
+    if resource.lower() == 'contactslist' and action.lower() == 'csvdata':
+        headers = {'Content-type': 'text/plain'}
+    elif resource.lower() == 'batchjob' and action.lower() == 'csverror':
+        headers = {'Content-type': 'text/csv'}
 
     if extra_headers:
         headers.update(extra_headers)
