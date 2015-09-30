@@ -2,7 +2,7 @@
 
 ### API documentation
 
-Find out more about the Mailjet API: http://dev.mailjet.com/
+Find out more about the Mailjet API: http://dev.mailjet.com/guides/?python
 
 ## Getting Started
 
