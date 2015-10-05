@@ -67,9 +67,9 @@ class Client(object):
         if (len(split) > 1):
             action = split[1]
             if action == 'csvdata':
-				action = 'csvdata/text:plain'
+                action = 'csvdata/text:plain'
             if action == 'csverror':
-				action = 'csverror/text:csv'
+                action = 'csverror/text:csv'
         url, headers = self.config[name]
         return type(fname, (Endpoint,), {})(url=url, headers=headers, action=action, auth=self.auth)
 
@@ -92,8 +92,6 @@ def api_call(auth, method, url, headers, data=None, filters=None, resource_id=No
         raise TimeoutError
     except requests.RequestException as e:
         raise ApiError(e)
-    except ValidationError, e:
-        raise
     except Exception as e:
         raise
 
