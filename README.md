@@ -1,6 +1,8 @@
-#Simple Mailjet APIv3 wrapper (WIP)
+#Simple Mailjet APIv3 wrapper
 
 [![Build Status](https://travis-ci.org/mailjet/mailjet-apiv3-python.svg?branch=master)](https://travis-ci.org/mailjet/mailjet-apiv3-python)
+
+Compatibility: python2.*
 
 ### API documentation
 
