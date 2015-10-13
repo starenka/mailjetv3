@@ -18,7 +18,7 @@ export MJ_APIKEY_PRIVATE='your api secret'
 
 ``` python
 # import the mailjet wrapper
-from mailjet import Client
+from mailjet_rest import Client
 import os
 
 # Get your environment Mailjet keys
