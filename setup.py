@@ -7,9 +7,6 @@ import re
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
-with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
-    README = readme.read()
-
 HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'mailjet-rest'
 VERSION = 'v1.0.0'
@@ -21,9 +18,9 @@ setup(
     author_email='starenka0@gmail.com',
     maintainer='Guillaume Badi',
     maintainer_email='gbadi@mailjet.com',
+	download_url='https://github.com/mailjet/mailjet-apiv3-python/tarball/v1.0.0',
     url='https://github.com/mailjet/mailjet-apiv3-python',
     description=('Mailjet V3 API wrapper'),
-    long_description=README,
     classifiers=['Development Status :: 3 - Alpha',
                  'Environment :: Console',
                  'Intended Audience :: Developers',
@@ -33,6 +30,7 @@ setup(
                  'Programming Language :: Python :: 2.6',
                  'Programming Language :: Python :: 2.7',
                  'Programming Language :: Python :: 3.2',
+                 'Programming Language :: Python :: 3.5',
                  'Topic :: Utilities'],
     license='GPLv3',
     keywords='mailjet api wrapper email client',
