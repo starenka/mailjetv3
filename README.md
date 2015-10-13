@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/mailjet/mailjet-apiv3-python.svg?branch=master)](https://travis-ci.org/mailjet/mailjet-apiv3-python)
 
-Compatibility: python2.*
-
 ### API documentation
 
 Every code examples can be find on the Mailjet Documentation: http://dev.mailjet.com/guides/?python
