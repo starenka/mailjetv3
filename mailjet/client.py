@@ -132,31 +132,7 @@ def parse_response(response, debug=False):
         logging.debug('RESPONSE: %s' % response.content)
         logging.debug('RESP_HEADERS: %s' % response.headers)
         logging.debug('RESP_CODE: %s' % response.status_code)
-
-    # if response.status_code > 300:
-    #     errors = data
-    #     exc_data = dict(message=errors.get('ErrorMessage', None),
-    #                     info=errors.get('ErrorInfo', None),
-    #                     response_parsed=data,
-    #                     response=response,
-    #                     request=response.request,
-    #                     )
-    #
-    # if response.status_code == 401:
-    #     raise AuthorizationError(exc_data)
-    # elif response.status_code == 403:
-    #     raise ActionDeniedError(exc_data)
-    # elif response.status_code == 404:
-    #     raise DoesNotExistError(exc_data)
-    # elif response.status_code == 422:
-    #     raise ValidationError(exc_data)
-    # elif response.status_code >= 500:
-    #     logging.error('Critical API error', exc_info=True, extra=exc_data)
-    #     raise CriticalApiError(errors)
-    # elif response.status_code >= 400:
-    #     logging.error('API error', exc_info=True, extra=exc_data)
-    #     raise ApiError(exc_data)
-
+        
     return data
 
 
