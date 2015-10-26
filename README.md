@@ -1,10 +1,15 @@
 #Simple Mailjet APIv3 wrapper
 
+[doc]: http://dev.mailjet.com/guides/?python#
+[api_doc]: https://github.com/mailjet/api-documentation
+
 [![Build Status](https://travis-ci.org/mailjet/mailjet-apiv3-python.svg?branch=master)](https://travis-ci.org/mailjet/mailjet-apiv3-python)
 
 ### API documentation
 
-Every code examples can be find on the Mailjet Documentation: http://dev.mailjet.com/guides/?python
+Every code examples can be find on the [Mailjet Documentation][doc]
+
+(Please refer to the [Mailjet Documentation Repository][api_doc] to contribute to the documentation examples)
 
 ## Getting Started
 
