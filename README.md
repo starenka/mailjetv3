@@ -11,6 +11,12 @@ Every code examples can be find on the [Mailjet Documentation][doc]
 
 (Please refer to the [Mailjet Documentation Repository][api_doc] to contribute to the documentation examples)
 
+## Installation
+
+``` bash
+(sudo) pip install mailjet_rest
+```
+
 ## Getting Started
 
 First, make sure you have an API key, and an API secret.
