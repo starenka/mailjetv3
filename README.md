@@ -48,7 +48,7 @@ result = mailjet.contact.get(filters={'limit': 2})
 ## `POST` request
 ``` python
 # Register a new sender email address
-result = mailjet.sender.post(data={'email': 'test@mailjet.com'})
+result = mailjet.sender.create(data={'email': 'test@mailjet.com'})
 ```
 
 ## Combine a resource with an action
