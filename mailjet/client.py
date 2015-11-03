@@ -45,7 +45,7 @@ class Endpoint(object):
     def get(self, id=None, filters=None, action_id=None, **kwargs):
         return self._get(id=id, filters=filters, **kwargs)
 
-    def create(self, data, filters=None, id=None, action_id=None, **kwargs):
+    def create(self, data=None, filters=None, id=None, action_id=None, **kwargs):
         return api_call(self._auth, 'post', self._url, headers=self.headers, resource_id=id, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
     def update(self, id, data, filters=None, action_id=None, **kwargs):
