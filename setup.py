@@ -8,8 +8,8 @@ from setuptools import setup
 from setuptools.command.test import test as TestCommand
 
 HERE = os.path.abspath(os.path.dirname(__file__))
-PACKAGE_NAME = 'mailjet-rest'
-VERSION = 'v1.0.4'
+PACKAGE_NAME = 'mailjet_rest'
+VERSION = 'v1.0.5'
 
 setup(
     name=PACKAGE_NAME,
@@ -18,7 +18,7 @@ setup(
     author_email='starenka0@gmail.com',
     maintainer='Guillaume Badi',
     maintainer_email='gbadi@mailjet.com',
-	download_url='https://github.com/mailjet/mailjet-apiv3-python/tarball/v1.0.0',
+	download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v1.0.5'
     url='https://github.com/mailjet/mailjet-apiv3-python',
     description=('Mailjet V3 API wrapper'),
     classifiers=['Development Status :: 3 - Alpha',
