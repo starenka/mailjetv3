@@ -18,7 +18,7 @@ setup(
     author_email='starenka0@gmail.com',
     maintainer='Guillaume Badi',
     maintainer_email='gbadi@mailjet.com',
-	download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v1.0.5'
+    download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v1.0.5',
     url='https://github.com/mailjet/mailjet-apiv3-python',
     description=('Mailjet V3 API wrapper'),
     classifiers=['Development Status :: 3 - Alpha',
