@@ -1,9 +1,12 @@
 language: python
-
 python:
-  - "2.6"
-  - "2.7"
-  - "3.5.0"
-
-install: "pip install -r requirements.txt"
+- '2.6'
+- '2.7'
+- 3.5.0
+deploy:
+  provider: pypi
+  user: api.mailjet
+  password:
+    secure: qaWNM76aYFqF0jw9IvFblXmAWvs/3RufnS75JA+IjZM93At/aC6wl7KDwcn/O8z/5iKbQf9UpF3G+ucmkAwacQPsM9GxfJ6hiFvYqXPiZ4ViqRQe3ru6IkcgAuN7Qn8Qn9IaKoGTwLtFAs5PpXwLy8dy3re3feJRtgbTQK60FvJR2dFqP9TuNRjcR4L+M/HtT393wOQQ8Bnie6iyo0QGZ2nDbPYrSsqvvF2aiqky1Ra3fpxNpEWoQ4wpcqaO7P2hx29epIZQTqyY6LjbfgofKkQKirbRjQ6Qw8LTjRqbVJyOzeROkAcLBmtfcuEeVVJL2k5df/sUBHcBg0sp1cp8PCc0ODBVMB0Cv82GLu1NGUptiRCkB+2irztuA9MSRBZKeenovovRf5/rukKBZX00q2jOzFhnMiWowqVxX0buIZfYT72qd6OLkNJNvew1DqAYALgTQ/uR5P2kct2IeO2qY+kFlqIPpr/n1YPtGqcVkfQHnCmvAJA/NX3n5Vdoel+HfwxeX8oH5puP4HDl3XOeKbhxjmEMHoscd01Ou/8PjWSmpUa4CCxSY9j5BRfTojNbsLu2bZ6N2SaVw7KVcdAaikM7CktTxen3sd6mdo32JrMn+lCqwE8ChDNQ5fzxVh9jyst7ZV6x10N/0u5yBaiYqXholxkX9BbZttLBC+DITyA=
+install: pip install -r requirements.txt
 script: python test.py
