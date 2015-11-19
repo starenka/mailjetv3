@@ -46,6 +46,8 @@ class Endpoint(object):
         return self._get(id=id, filters=filters, **kwargs)
 
     def create(self, data=None, filters=None, id=None, action_id=None, **kwargs):
+        if self.headers['Content-type'] == 'application/json':
+            data = json.dumps(data)
         return api_call(self._auth, 'post', self._url, headers=self.headers, resource_id=id, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
     def update(self, id, data, filters=None, action_id=None, **kwargs):
@@ -79,10 +81,10 @@ def api_call(auth, method, url, headers, data=None, filters=None, resource_id=No
     url = build_url(url, method=method, action=action, resource_id=resource_id, action_id=action_id)
     req_method = getattr(requests, method)
 
-# url = 'http://requestb.in/1fuplcz1'
+# url = 'http://requestb.in/1kbjidp1'
 
     try:
-        response = req_method(url, data=json.dumps(data), params=filters, headers=headers, auth=auth,
+        response = req_method(url, data=data, params=filters, headers=headers, auth=auth,
                               timeout=timeout, verify=False, stream=False)
 
         # return parse_response(response, debug=debug)
