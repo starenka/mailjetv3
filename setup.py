@@ -39,4 +39,5 @@ setup(
     install_requires=['requests>=2.4.3'],
     tests_require=['unittest'],
     entry_points={},
+    packages=['mailjet'],
 )
