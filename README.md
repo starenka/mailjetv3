@@ -74,7 +74,7 @@ email = {
 	'Recipients': [{'Email': 'your email here'}]
 }
 
-mailjet.send.post(email)
+mailjet.send.create(email)
 
 ```
 
@@ -83,7 +83,7 @@ mailjet.send.post(email)
 
 # wrapping the call inside a function
 def new_contact(email):
-	return mailjet.contact.new(data={'Email': email})
+	return mailjet.contact.create(data={'Email': email})
 
 new_contact('mr@smith.com')
 ```
