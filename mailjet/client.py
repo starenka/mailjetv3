@@ -15,13 +15,13 @@ class Config(object):
 
     def __getitem__(self, key):
         url = self.API_URL[0:]
-        headers = {'Content-type': 'application/json'}
+        headers = {'Content-type': 'application/json', 'User-agent': 'mailjet-apiv3-python'}
         if key.lower() == 'contactslist_csvdata':
             url = urljoin(url, 'DATA/')
-            headers = {'Content-type': 'text/plain'}
+            headers['Content-type'] = 'text/plain'
         elif key.lower() == 'batchjob_csverror':
             url = urljoin(url, 'DATA/')
-            headers = {'Content-type': 'text/csv'}
+            headers['Content-type'] = 'text/csv'
         elif key.lower() != 'send':
             url = urljoin(url, 'REST/')
         url = url + key.split('_')[0].lower()
@@ -80,8 +80,6 @@ def api_call(auth, method, url, headers, data=None, filters=None, resource_id=No
              timeout=60, debug=False, action=None, action_id=None, **kwargs):
     url = build_url(url, method=method, action=action, resource_id=resource_id, action_id=action_id)
     req_method = getattr(requests, method)
-
-# url = 'http://requestb.in/1kbjidp1'
 
     try:
         response = req_method(url, data=data, params=filters, headers=headers, auth=auth,
