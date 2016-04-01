@@ -54,7 +54,7 @@ class Endpoint(object):
         return api_call(self._auth, 'put', self._url, resource_id=id, headers=self.headers, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
     def delete(self, id, **kwargs):
-        return api_call(self._auth, 'delete', self._url, action=self.action, headers=self.headers, action_id=action_id, resource_id=id, **kwargs)
+        return api_call(self._auth, 'delete', self._url, action=self.action, headers=self.headers, resource_id=id, **kwargs)
 
 
 class Client(object):
@@ -132,7 +132,7 @@ def parse_response(response, debug=False):
         logging.debug('RESPONSE: %s' % response.content)
         logging.debug('RESP_HEADERS: %s' % response.headers)
         logging.debug('RESP_CODE: %s' % response.status_code)
-        
+
     return data
 
 
