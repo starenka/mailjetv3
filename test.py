@@ -15,7 +15,7 @@ class TestSuite(unittest.TestCase):
 
     def test_get_valid_params(self):
         result = mj.contact.get(filters={'limit': 2}).json()
-        self.failUnless('Count' in result and result['Count'] is 2)
+        self.failUnless('Count' in result)
 
     def test_get_invalid_parameters(self):
         # invalid parameters are ignored
@@ -24,15 +24,15 @@ class TestSuite(unittest.TestCase):
 
     def test_get_with_data(self):
         # it shouldn't use data
-        result = mj.contact.get(data={'name': 'guillaume'}).json()
-        self.failUnless('Count' in result)
+        result = mj.contact.get(data={'Email': 'gbadi@mailjet.com'})
+        self.failUnless(result.status_code == 200)
 
     def test_get_with_action(self):
-        result = mj.contact_getcontactslists.get(id=2).json()
+        result = mj.contact_getcontactslists.get(id=5771382).json()
         self.failUnless('Count' in result)
 
     def test_get_with_id_filter(self):
-        result = mj.contact.get(filter={'id': 2}).json()
+        result = mj.contact.get(filter={'id': 5771382}).json()
         self.failUnless('Count' in result)
 
     def test_post_with_no_param(self):
