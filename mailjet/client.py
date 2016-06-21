@@ -52,7 +52,7 @@ class Endpoint(object):
 
     def update(self, id, data, filters=None, action_id=None, **kwargs):
         if self.headers['Content-type'] == 'application/json':
-			data = json.dumps(data)
+            data = json.dumps(data)
         return api_call(self._auth, 'put', self._url, resource_id=id, headers=self.headers, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
     def delete(self, id, **kwargs):
