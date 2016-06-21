@@ -1,5 +1,5 @@
 import unittest
-import mailjet.client
+import mailjet_rest.client
 import os
 
 API_KEY = os.environ['MJ_APIKEY_PUBLIC']
