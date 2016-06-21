@@ -1,11 +1,11 @@
 import unittest
-import mailjet_rest.client
+from mailjet_rest import Client
 import os
 
 API_KEY = os.environ['MJ_APIKEY_PUBLIC']
 API_SECRET = os.environ['MJ_APIKEY_PRIVATE']
 
-mj = mailjet.Client(auth=(API_KEY, API_SECRET))
+mj = Client(auth=(API_KEY, API_SECRET))
 
 class TestSuite(unittest.TestCase):
 
