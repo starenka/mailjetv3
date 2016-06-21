@@ -9,7 +9,7 @@ from setuptools.command.test import test as TestCommand
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'mailjet_rest'
-VERSION = 'v1.0.6'
+VERSION = 'v1.2.2'
 
 setup(
     name=PACKAGE_NAME,
@@ -18,7 +18,7 @@ setup(
     author_email='starenka0@gmail.com',
     maintainer='Guillaume Badi',
     maintainer_email='gbadi@mailjet.com',
-    download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v1.0.5',
+    download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v1.0.7',
     url='https://github.com/mailjet/mailjet-apiv3-python',
     description=('Mailjet V3 API wrapper'),
     classifiers=['Development Status :: 3 - Alpha',
@@ -39,5 +39,5 @@ setup(
     install_requires=['requests>=2.4.3'],
     tests_require=['unittest'],
     entry_points={},
-    packages=['mailjet'],
+    packages=['mailjet_rest'],
 )
