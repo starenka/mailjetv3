@@ -96,7 +96,7 @@ def api_call(auth, method, url, headers, data=None, filters=None, resource_id=No
         raise
 
 
-def build_headers(resource, action=None):
+def build_headers(resource, action=None, extra_headers=None):
     headers = {'Content-type': 'application/json'}
 
     if resource.lower() == 'contactslist' and action.lower() == 'csvdata':
