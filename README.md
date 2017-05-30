@@ -36,9 +36,11 @@ import os
 API_KEY = os.environ['MJ_APIKEY_PUBLIC']
 API_SECRET = os.environ['MJ_APIKEY_PRIVATE']
 
-mailjet = Client(auth=(API_KEY, API_SECRET))
+mailjet = Client(auth=(API_KEY, API_SECRET), version='v3/')
 
 ```
+
+**NOTE**: `version` reflects the api version in the url (`https://api.mailjet.com/{{ version }}/REST/`). It is `'v3/'` by default and can be used to select another api version (for example `v3.1/` for the new send API). **The forward slash in the value is mandatory!**
 
 ## Make a `GET` request:
 ``` python
