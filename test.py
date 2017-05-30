@@ -6,9 +6,11 @@ import os
 class TestSuite(unittest.TestCase):
 
     def setUp(self):
-        self.API_KEY = os.environ['MJ_APIKEY_PUBLIC']
-        self.API_SECRET = os.environ['MJ_APIKEY_PRIVATE']
-        self.client = Client(auth=(self.API_KEY, self.API_SECRET))
+        self.auth = (
+            os.environ['MJ_APIKEY_PUBLIC'],
+            os.environ['MJ_APIKEY_PRIVATE']
+        )
+        self.client = Client(auth=self.auth)
 
     def test_get_no_param(self):
         result = self.client.contact.get().json()
@@ -42,7 +44,7 @@ class TestSuite(unittest.TestCase):
 
     def test_clinet_custom_version(self):
         self.client = Client(
-            auth=(self.API_KEY, self.API_SECRET),
+            auth=self.auth,
             version='v31/'
         )
         self.assertEqual(self.client.config.version, 'v31/')
