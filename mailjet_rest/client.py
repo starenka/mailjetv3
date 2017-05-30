@@ -9,6 +9,7 @@ from requests.compat import urljoin
 
 requests.packages.urllib3.disable_warnings()
 
+
 class Config(object):
     API_URL = 'https://api.mailjet.com/v3/'
     API_DOC = 'http://dev.mailjet.com/email-api/v3/'
