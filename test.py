@@ -7,6 +7,7 @@ API_SECRET = os.environ['MJ_APIKEY_PRIVATE']
 
 mj = Client(auth=(API_KEY, API_SECRET))
 
+
 class TestSuite(unittest.TestCase):
 
     def test_get_no_param(self):
