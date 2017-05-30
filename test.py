@@ -40,6 +40,13 @@ class TestSuite(unittest.TestCase):
         result = self.client.sender.create(data={}).json()
         self.failUnless('StatusCode' in result and result['StatusCode'] is not 400)
 
+    def test_clinet_custom_version(self):
+        self.client = Client(
+            auth=(self.API_KEY, self.API_SECRET),
+            version='v31/'
+        )
+        self.assertEqual(self.client.config.version, 'v31/')
+
 
 if __name__ == '__main__':
     unittest.main()
