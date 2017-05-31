@@ -11,6 +11,7 @@ import re
 HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'mailjet_rest'
 
+# Taken from https://stackoverflow.com/a/39671214/1506051
 __version__ = re.search(
     r'__version__\s*=\s*[\'"]([^\'"]*)[\'"]',  # It excludes inline comment too
     open('mailjet_rest/_version.py').read()).group(1)
