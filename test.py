@@ -4,6 +4,7 @@ import os
 import random
 import string
 
+
 class TestSuite(unittest.TestCase):
 
     def setUp(self):
@@ -19,7 +20,7 @@ class TestSuite(unittest.TestCase):
 
     def test_get_valid_params(self):
         result = self.client.contact.get(filters={'limit': 2}).json()
-        self.failUnless('Count' >= 0 or Count <= 2)
+        self.failUnless('Count' >= 0 or result['Count'] <= 2)
 
     def test_get_invalid_parameters(self):
         # invalid parameters are ignored
@@ -71,6 +72,7 @@ class TestSuite(unittest.TestCase):
             version='v3.1'
         )
         self.assertEqual(self.client.config.user_agent, 'mailjet-apiv3-python/'+__version__)
+
 
 if __name__ == '__main__':
     unittest.main()

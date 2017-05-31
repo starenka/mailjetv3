@@ -15,7 +15,7 @@ class Config(object):
     API_URL = 'https://api.mailjet.com/'
     API_REF = 'http://dev.mailjet.com/email-api/v3/'
     version = 'v3'
-    user_agent = 'mailjet-apiv3-python/'+ __version__
+    user_agent = 'mailjet-apiv3-python/' + __version__
 
     def __init__(self, version=None):
         if version is not None:
