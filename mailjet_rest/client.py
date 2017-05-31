@@ -12,7 +12,7 @@ requests.packages.urllib3.disable_warnings()
 
 class Config(object):
     API_URL = 'https://api.mailjet.com/'
-    API_DOC = 'http://dev.mailjet.com/email-api/'
+    API_REF = 'http://dev.mailjet.com/email-api/v3/'
     version = 'v3'
 
     def __init__(self, version=None):
