@@ -31,6 +31,7 @@ setup(
                  'Programming Language :: Python :: 2.7',
                  'Programming Language :: Python :: 3.2',
                  'Programming Language :: Python :: 3.5',
+                 'Programming Language :: Python :: 3.6',
                  'Topic :: Utilities'],
     license='GPLv3',
     keywords='mailjet api wrapper email client',
