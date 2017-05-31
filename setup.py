@@ -6,18 +6,22 @@ import os
 import re
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
+import re
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'mailjet_rest'
-VERSION = 'v1.3.0'
+
+__version__ = re.search(
+    r'__version__\s*=\s*[\'"]([^\'"]*)[\'"]',  # It excludes inline comment too
+    open('mailjet_rest/_version.py').read()).group(1)
 
 setup(
     name=PACKAGE_NAME,
-    version=VERSION,
+    version=__version__,
     author='starenka',
     author_email='starenka0@gmail.com',
-    maintainer='Guillaume Badi',
-    maintainer_email='gbadi@mailjet.com',
+    maintainer='Mailjet',
+    maintainer_email='api@mailjet.com',
     download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v1.2.2',
     url='https://github.com/mailjet/mailjet-apiv3-python',
     description=('Mailjet V3 API wrapper'),
@@ -33,8 +37,8 @@ setup(
                  'Programming Language :: Python :: 3.5',
                  'Programming Language :: Python :: 3.6',
                  'Topic :: Utilities'],
-    license='GPLv3',
-    keywords='mailjet api wrapper email client',
+    license='MIT',
+    keywords='Mailjet API v3 / v3.1 Python Wrapper',
 
     include_package_data=True,
     install_requires=['requests>=2.4.3'],

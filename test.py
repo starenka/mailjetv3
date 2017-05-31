@@ -1,5 +1,5 @@
 import unittest
-from mailjet_rest import Client
+from mailjet_rest import Client, __version__
 import os
 
 
@@ -18,7 +18,7 @@ class TestSuite(unittest.TestCase):
 
     def test_get_valid_params(self):
         result = self.client.contact.get(filters={'limit': 2}).json()
-        self.failUnless('Count' in result)
+        self.failUnless('Count' >= 0 or Count <= 2)
 
     def test_get_invalid_parameters(self):
         # invalid parameters are ignored
@@ -27,16 +27,19 @@ class TestSuite(unittest.TestCase):
 
     def test_get_with_data(self):
         # it shouldn't use data
-        result = self.client.contact.get(data={'Email': 'gbadi@mailjet.com'})
+        result = self.client.contact.get(data={'Email': 'api@mailjet.com'})
         self.failUnless(result.status_code == 200)
 
     def test_get_with_action(self):
-        result = self.client.contact_getcontactslists.get(id=5771382).json()
+        result_cl = self.client.contactslist.get(filters={'limit': 1}).json()
+        self.failUnless(result_cl['Count'] > 0 )
+        result = self.client.contact_getcontactslists.get(result_cl['Data'][0]['ID']).json()
         self.failUnless('Count' in result)
 
     def test_get_with_id_filter(self):
-        result = self.client.contact.get(filter={'id': 5771382}).json()
-        self.failUnless('Count' in result)
+        result_contact = self.client.contact.get(filters={'limit': 1}).json()
+        result_contact_with_id = self.client.contact.get(filter={'Email': result_contact['Data'][0]['Email']}).json()
+        self.failUnless(result_contact_with_id['Data'][0]['Email'] == result_contact['Data'][0]['Email'])
 
     def test_post_with_no_param(self):
         result = self.client.sender.create(data={}).json()
@@ -53,6 +56,12 @@ class TestSuite(unittest.TestCase):
             'https://api.mailjet.com/v3.1/send'
         )
 
+    def test_user_agent(self):
+        self.client = Client(
+            auth=self.auth,
+            version='v3.1'
+        )
+        self.assertEqual(self.client.config.user_agent, 'mailjet-apiv3-python/'+__version__)
 
 if __name__ == '__main__':
     unittest.main()
