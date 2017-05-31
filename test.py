@@ -16,21 +16,21 @@ class TestSuite(unittest.TestCase):
 
     def test_get_no_param(self):
         result = self.client.contact.get().json()
-        self.failUnless(('Data' in result and 'Count' in result))
+        self.assertTrue(('Data' in result and 'Count' in result))
 
     def test_get_valid_params(self):
         result = self.client.contact.get(filters={'limit': 2}).json()
-        self.failUnless('Count' >= 0 or result['Count'] <= 2)
+        self.assertTrue(result['Count'] >= 0 or result['Count'] <= 2)
 
     def test_get_invalid_parameters(self):
         # invalid parameters are ignored
         result = self.client.contact.get(filters={'invalid': 'false'}).json()
-        self.failUnless('Count' in result)
+        self.assertTrue('Count' in result)
 
     def test_get_with_data(self):
         # it shouldn't use data
         result = self.client.contact.get(data={'Email': 'api@mailjet.com'})
-        self.failUnless(result.status_code == 200)
+        self.assertTrue(result.status_code == 200)
 
     def test_get_with_action(self):
         get_contact = self.client.contact.get(filters={'limit': 1}).json()
@@ -39,7 +39,7 @@ class TestSuite(unittest.TestCase):
         else:
             contact_random_email = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)) + '@mailjet.com'
             post_contact = self.client.contact.create(data={'Email': contact_random_email})
-            self.failUnless(post_contact.status_code == 201)
+            self.assertTrue(post_contact.status_code == 201)
             contact_id = post_contact.json()['Data'][0]['ID']
 
         get_contact_list = self.client.contactslist.get(filters={'limit': 1}).json()
@@ -48,7 +48,7 @@ class TestSuite(unittest.TestCase):
         else:
             contact_list_random_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)) + '@mailjet.com'
             post_contact_list = self.client.contactslist.create(data={'Name': contact_list_random_name})
-            self.failUnless(post_contact_list.status_code == 201)
+            self.assertTrue(post_contact_list.status_code == 201)
             list_id = post_contact_list.json()['Data'][0]['ID']
 
         data = {
@@ -60,19 +60,19 @@ class TestSuite(unittest.TestCase):
                 ]
         }
         result_add_list = self.client.contact_managecontactslists.create(id=contact_id, data=data)
-        self.failUnless(result_add_list.status_code == 201)
+        self.assertTrue(result_add_list.status_code == 201)
 
         result = self.client.contact_getcontactslists.get(contact_id).json()
-        self.failUnless('Count' in result)
+        self.assertTrue('Count' in result)
 
     def test_get_with_id_filter(self):
         result_contact = self.client.contact.get(filters={'limit': 1}).json()
         result_contact_with_id = self.client.contact.get(filter={'Email': result_contact['Data'][0]['Email']}).json()
-        self.failUnless(result_contact_with_id['Data'][0]['Email'] == result_contact['Data'][0]['Email'])
+        self.assertTrue(result_contact_with_id['Data'][0]['Email'] == result_contact['Data'][0]['Email'])
 
     def test_post_with_no_param(self):
         result = self.client.sender.create(data={}).json()
-        self.failUnless('StatusCode' in result and result['StatusCode'] is not 400)
+        self.assertTrue('StatusCode' in result and result['StatusCode'] is not 400)
 
     def test_client_custom_version(self):
         self.client = Client(
