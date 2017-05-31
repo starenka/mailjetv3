@@ -36,7 +36,7 @@ import os
 API_KEY = os.environ['MJ_APIKEY_PUBLIC']
 API_SECRET = os.environ['MJ_APIKEY_PRIVATE']
 
-mailjet = Client(auth=(API_KEY, API_SECRET), version='v3/')
+mailjet = Client(auth=(API_KEY, API_SECRET), version='v3')
 
 ```
 
