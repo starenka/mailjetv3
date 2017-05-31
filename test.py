@@ -53,17 +53,6 @@ class TestSuite(unittest.TestCase):
             'https://api.mailjet.com/v3.1/REST/contact'
         )
 
-    def test_client_custom_version_forward_slash(self):
-        self.client = Client(
-            auth=self.auth,
-            version='v3.1/'
-        )
-        self.assertEqual(self.client.config.version, 'v3.1/')
-        self.assertEqual(
-            self.client.config['contact'][0],
-            'https://api.mailjet.com/v3.1/REST/contact'
-        )
-
 
 if __name__ == '__main__':
     unittest.main()
