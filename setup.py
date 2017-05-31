@@ -9,7 +9,7 @@ from setuptools.command.test import test as TestCommand
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'mailjet_rest'
-VERSION = 'v1.2.2'
+VERSION = 'v1.3.0'
 
 setup(
     name=PACKAGE_NAME,
