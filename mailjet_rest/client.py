@@ -85,7 +85,7 @@ def api_call(auth, method, url, headers, data=None, filters=None, resource_id=No
 
     try:
         response = req_method(url, data=data, params=filters, headers=headers, auth=auth,
-                              timeout=timeout, verify=False, stream=False)
+                              timeout=timeout, verify=True, stream=False)
         return response
 
     except requests.exceptions.Timeout:
