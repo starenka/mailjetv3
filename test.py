@@ -35,7 +35,7 @@ class TestSuite(unittest.TestCase):
     def test_get_with_action(self):
         result_contact = self.client.contactslist.get(filters={'limit': 1}).json()
 
-        if result_contact['Count'] is not 0:
+        if result_contact['Count'] != 0:
             contact_id = result_contact['Data'][0]['ID']
         else:
             contact_random_email = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)) + '@mailjet.com'
@@ -44,7 +44,7 @@ class TestSuite(unittest.TestCase):
             contact_id = post_contact.json()['Data'][0]['ID']
 
         result = self.client.contact_getcontactslists.get(contact_id).json()
-        self.failUnless(result['Count'] > 1)
+        self.failUnless('Count' in result)
 
     def test_get_with_id_filter(self):
         result_contact = self.client.contact.get(filters={'limit': 1}).json()
