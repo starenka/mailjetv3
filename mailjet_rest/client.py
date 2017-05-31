@@ -5,7 +5,7 @@ import json
 import logging
 
 import requests
-from requests.compat import urljoin, quote
+from requests.compat import urljoin
 
 requests.packages.urllib3.disable_warnings()
 
@@ -23,7 +23,7 @@ class Config(object):
         url = self.API_URL[0:]
         # Append version to URL.
         # Forwart slash is ignored if present in self.version.
-        url = urljoin(url, quote(self.version) + '/')
+        url = urljoin(url, self.version + '/')
         headers = {'Content-type': 'application/json', 'User-agent': 'mailjet-apiv3-python'}
         if key.lower() == 'contactslist_csvdata':
             url = urljoin(url, 'DATA/')
