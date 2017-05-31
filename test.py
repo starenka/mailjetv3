@@ -45,9 +45,9 @@ class TestSuite(unittest.TestCase):
     def test_client_custom_version(self):
         self.client = Client(
             auth=self.auth,
-            version='v31/'
+            version='v31'
         )
-        self.assertEqual(self.client.config.version, 'v31/')
+        self.assertEqual(self.client.config.version, 'v31')
 
 
 if __name__ == '__main__':
