@@ -44,6 +44,7 @@ class TestSuite(unittest.TestCase):
             contact_id = post_contact.json()['Data'][0]['ID']
 
         result = self.client.contact_getcontactslists.get(contact_id).json()
+        print result
         self.failUnless('Count' in result)
 
     def test_get_with_id_filter(self):
