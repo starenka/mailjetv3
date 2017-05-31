@@ -49,8 +49,8 @@ class TestSuite(unittest.TestCase):
         )
         self.assertEqual(self.client.config.version, 'v3.1')
         self.assertEqual(
-            self.client.config['contact'][0],
-            'https://api.mailjet.com/v3.1/REST/contact'
+            self.client.config['send'][0],
+            'https://api.mailjet.com/v3.1/send'
         )
 
 
