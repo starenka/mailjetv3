@@ -1,7 +1,8 @@
 import unittest
 from mailjet_rest import Client, __version__
 import os
-
+import random
+import string
 
 class TestSuite(unittest.TestCase):
 
@@ -31,8 +32,13 @@ class TestSuite(unittest.TestCase):
         self.failUnless(result.status_code == 200)
 
     def test_get_with_action(self):
+        cl_random_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+        post_cl = self.client.contactslist.create(data={'Name': cl_random_name})
+
+        self.failUnless(post_cl.status_code == 201)
         result_cl = self.client.contactslist.get(filters={'limit': 1}).json()
         self.failUnless(result_cl['Count'] > 0 )
+
         result = self.client.contact_getcontactslists.get(result_cl['Data'][0]['ID']).json()
         self.failUnless('Count' in result)
 
