@@ -22,7 +22,7 @@ class Config(object):
     def __getitem__(self, key):
         url = self.API_URL[0:]
         # Append version to URL.
-        # Forwart slash is ignored if present in self.version.
+        # Forward slash is ignored if present in self.version.
         url = urljoin(url, self.version + '/')
         headers = {'Content-type': 'application/json', 'User-agent': 'mailjet-apiv3-python'}
         if key.lower() == 'contactslist_csvdata':
