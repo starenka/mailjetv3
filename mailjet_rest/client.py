@@ -9,12 +9,21 @@ from requests.compat import urljoin
 
 requests.packages.urllib3.disable_warnings()
 
+
 class Config(object):
-    API_URL = 'https://api.mailjet.com/v3/'
-    API_DOC = 'http://dev.mailjet.com/email-api/v3/'
+    API_URL = 'https://api.mailjet.com/'
+    API_REF = 'http://dev.mailjet.com/email-api/v3/'
+    version = 'v3'
+
+    def __init__(self, version=None):
+        if version is not None:
+            self.version = version
 
     def __getitem__(self, key):
         url = self.API_URL[0:]
+        # Append version to URL.
+        # Forward slash is ignored if present in self.version.
+        url = urljoin(url, self.version + '/')
         headers = {'Content-type': 'application/json', 'User-agent': 'mailjet-apiv3-python'}
         if key.lower() == 'contactslist_csvdata':
             url = urljoin(url, 'DATA/')
@@ -61,8 +70,10 @@ class Endpoint(object):
 
 class Client(object):
 
-    def __init__(self, auth=None, config=Config()):
-        self.auth, self.config = auth, config
+    def __init__(self, auth=None, **kwargs):
+        self.auth = auth
+        version = kwargs.get('version', None)
+        self.config = Config(version=version)
 
     def __getattr__(self, name):
         split = name.split('_')
