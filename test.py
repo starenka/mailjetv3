@@ -32,15 +32,18 @@ class TestSuite(unittest.TestCase):
         self.failUnless(result.status_code == 200)
 
     def test_get_with_action(self):
-        cl_random_name = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
-        post_cl = self.client.contactslist.create(data={'Name': cl_random_name})
+        result_contact = self.client.contactslist.get(filters={'limit': 1}).json()
 
-        self.failUnless(post_cl.status_code == 201)
-        result_cl = self.client.contactslist.get(filters={'limit': 1}).json()
-        self.failUnless(result_cl['Count'] > 0 )
+        if result_contact['Count'] is not 0:
+            contact_id = result_contact['Data'][0]['ID']
+        else:
+            contact_random_email = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)) + '@mailjet.com'
+            post_contact = self.client.contact.create(data={'Email': contact_random_email})
+            self.failUnless(post_contact.status_code == 201)
+            contact_id = post_contact.json()['Data'][0]['ID']
 
-        result = self.client.contact_getcontactslists.get(result_cl['Data'][0]['ID']).json()
-        self.failUnless('Count' in result)
+        result = self.client.contact_getcontactslists.get(contact_id).json()
+        self.failUnless(result['Count'] > 1)
 
     def test_get_with_id_filter(self):
         result_contact = self.client.contact.get(filters={'limit': 1}).json()
