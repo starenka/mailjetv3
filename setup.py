@@ -2,25 +2,23 @@
 # coding=utf-8
 
 import os
-import re
 from setuptools import setup
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'mailjet_rest'
 
-# Taken from https://stackoverflow.com/a/39671214/1506051
-__version__ = re.search(
-    r'__version__\s*=\s*[\'"]([^\'"]*)[\'"]',  # It excludes inline comment too
-    open('mailjet_rest/_version.py').read()).group(1)
+import ipdb; ipdb.set_trace()
+# Dynamically calculate the version based on mailjet_rest.VERSION.
+version = __import__('mailjet_rest').get_version()
 
 setup(
     name=PACKAGE_NAME,
-    version=__version__,
+    version=version,
     author='starenka',
     author_email='starenka0@gmail.com',
     maintainer='Mailjet',
     maintainer_email='api@mailjet.com',
-    download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v'+__version__,
+    download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v' + version,
     url='https://github.com/mailjet/mailjet-apiv3-python',
     description=('Mailjet V3 API wrapper'),
     classifiers=['Development Status :: 3 - Alpha',

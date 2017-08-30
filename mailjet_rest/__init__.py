@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # coding=utf-8
+from mailjet_rest.client import Client
+from mailjet_rest.utils.version import get_version
 
-from .client import Client
+__version__ = get_version()
 
-from ._version import __version__
-__all__ = (Client,)
+__all__ = (Client, get_version)
