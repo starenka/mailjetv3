@@ -52,12 +52,12 @@ class TestSuite(unittest.TestCase):
             list_id = post_contact_list.json()['Data'][0]['ID']
 
         data = {
-          'ContactsLists': [
-                        {
-                                "ListID": list_id,
-                                "Action": "addnoforce"
-                        }
-                ]
+            'ContactsLists': [
+                {
+                    "ListID": list_id,
+                    "Action": "addnoforce"
+                }
+            ]
         }
         result_add_list = self.client.contact_managecontactslists.create(id=contact_id, data=data)
         self.assertTrue(result_add_list.status_code == 201)
