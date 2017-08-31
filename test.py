@@ -1,5 +1,5 @@
 import unittest
-from mailjet_rest import Client, __version__
+from mailjet_rest import Client
 import os
 import random
 import string
@@ -52,12 +52,12 @@ class TestSuite(unittest.TestCase):
             list_id = post_contact_list.json()['Data'][0]['ID']
 
         data = {
-          'ContactsLists': [
-                        {
-                                "ListID": list_id,
-                                "Action": "addnoforce"
-                        }
-                ]
+            'ContactsLists': [
+                {
+                    "ListID": list_id,
+                    "Action": "addnoforce"
+                }
+            ]
         }
         result_add_list = self.client.contact_managecontactslists.create(id=contact_id, data=data)
         self.assertTrue(result_add_list.status_code == 201)
@@ -90,7 +90,7 @@ class TestSuite(unittest.TestCase):
             auth=self.auth,
             version='v3.1'
         )
-        self.assertEqual(self.client.config.user_agent, 'mailjet-apiv3-python/'+__version__)
+        self.assertEqual(self.client.config.user_agent, 'mailjet-apiv3-python/v1.3.0')
 
 
 if __name__ == '__main__':
