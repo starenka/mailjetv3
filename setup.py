@@ -2,7 +2,7 @@
 # coding=utf-8
 
 import os
-from setuptools import setup
+from setuptools import find_packages, setup
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'mailjet_rest'
@@ -38,5 +38,5 @@ setup(
     install_requires=['requests>=2.4.3'],
     tests_require=['unittest'],
     entry_points={},
-    packages=['mailjet_rest'],
+    packages=find_packages(),
 )
