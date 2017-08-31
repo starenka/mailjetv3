@@ -7,7 +7,6 @@ from setuptools import setup
 HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'mailjet_rest'
 
-import ipdb; ipdb.set_trace()
 # Dynamically calculate the version based on mailjet_rest.VERSION.
 version = __import__('mailjet_rest').get_version()
 
