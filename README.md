@@ -7,7 +7,7 @@
 
 ### API documentation
 
-Every code examples can be find on the [Mailjet Documentation][doc]
+All code examples can be found on the [Mailjet Documentation][doc].
 
 (Please refer to the [Mailjet Documentation Repository][api_doc] to contribute to the documentation examples)
 
@@ -22,7 +22,7 @@ Every code examples can be find on the [Mailjet Documentation][doc]
 First, make sure you have an API key, and an API secret.
 Once you got them, save them in your environment:
 
-```
+```bash
 export MJ_APIKEY_PUBLIC='your api key'
 export MJ_APIKEY_PRIVATE='your api secret'
 ```
@@ -40,17 +40,17 @@ mailjet = Client(auth=(API_KEY, API_SECRET), version='v3')
 
 ```
 
-**NOTE**: `version` reflects the api version in the url (`https://api.mailjet.com/{{ version }}/REST/`). It is `'v3'` by default and can be used to select another api version (for example `v3.1` for the new send API).
+**NOTE**: `version` reflects the API version in the URL (`https://api.mailjet.com/{{ version }}/REST/`). It is `'v3'` by default and can be used to select another API version (for example `v3.1` for the new send API).
 
 ## Make a `GET` request:
 ``` python
-# get every contacts
+# get all contacts
 result = mailjet.contact.get()
 ```
 
 ## `GET` request with filters:
 ``` python
-# get the 2 first contacts
+# get the first 2 contacts
 result = mailjet.contact.get(filters={'limit': 2})
 ```
 ## `POST` request
@@ -61,7 +61,7 @@ result = mailjet.sender.create(data={'email': 'test@mailjet.com'})
 
 ## Combine a resource with an action
 ``` python
-# Get the contact lists of contact #2
+# Get the contacts lists of contact #2
 result = mailjet.contact_getcontactslists.get(id=2)
 ```
 
@@ -72,7 +72,7 @@ email = {
 	'FromName': 'Mr Smith',
 	'FromEmail': 'mr@smith.com',
 	'Subject': 'Test Email',
-	'Text-Part': 'Hey there !',
+	'Text-Part': 'Hey there!',
 	'Recipients': [{'Email': 'your email here'}]
 }
 
