@@ -51,7 +51,7 @@ class Endpoint(object):
         return api_call(self._auth, 'get', self._url, headers=self.headers, action=self.action, action_id=action_id, filters=filters, resource_id=id, **kwargs)
 
     def get_many(self, filters=None, action_id=None, **kwargs):
-        return self._get(filters=filters, **kwargs)
+        return self._get(filters=filters, action_id=action_id **kwargs)
 
     def get(self, id=None, filters=None, action_id=None, **kwargs):
         return self._get(id=id, filters=filters, **kwargs)
@@ -79,9 +79,11 @@ class Client(object):
 
     def __getattr__(self, name):
         split = name.split('_')
+        #identify the resource
         fname = split[0]
         action = None
         if (len(split) > 1):
+            #identify the sub resource (action)
             action = split[1]
             if action == 'csvdata':
                 action = 'csvdata/text:plain'
@@ -129,7 +131,7 @@ def build_url(url, method, action=None, resource_id=None, action_id=None):
     if action:
         url += '/%s' % action
         if action_id:
-            url += '/%d' % action_id
+            url += '/{}'.format(action_id)
 
     return url
 
