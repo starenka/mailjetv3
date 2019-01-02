@@ -1,4 +1,6 @@
-#Simple Mailjet APIv3 wrapper
+![alt text](https://www.mailjet.com/images/email/transac/logo_header.png "Mailjet")
+
+# Simple Mailjet APIv3 Python Wrapper
 
 [doc]: http://dev.mailjet.com/guides/?python#
 [api_doc]: https://github.com/mailjet/api-documentation
