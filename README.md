@@ -70,15 +70,33 @@ result = mailjet.contact_getcontactslists.get(id=2)
 ## Send an Email
 ``` python
 
-email = {
-	'FromName': 'Mr Smith',
-	'FromEmail': 'mr@smith.com',
-	'Subject': 'Test Email',
-	'Text-Part': 'Hey there!',
-	'Recipients': [{'Email': 'your email here'}]
+from mailjet_rest import Client
+import os
+api_key = os.environ['MJ_APIKEY_PUBLIC']
+api_secret = os.environ['MJ_APIKEY_PRIVATE']
+mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+data = {
+  'Messages': [
+                {
+                        "From": {
+                                "Email": "pilot@mailjet.com",
+                                "Name": "Mailjet Pilot"
+                        },
+                        "To": [
+                                {
+                                        "Email": "passenger1@mailjet.com",
+                                        "Name": "passenger 1"
+                                }
+                        ],
+                        "Subject": "Your email flight plan!",
+                        "TextPart": "Dear passenger 1, welcome to Mailjet! May the delivery force be with you!",
+                        "HTMLPart": "<h3>Dear passenger 1, welcome to Mailjet!</h3><br />May the delivery force be with you!"
+                }
+        ]
 }
-
-mailjet.send.create(email)
+result = mailjet.send.create(data=data)
+print result.status_code
+print result.json()
 
 ```
 
