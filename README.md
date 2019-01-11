@@ -112,6 +112,8 @@ print result.json()
 
 ```
 
+You can also use the previous version of Mailjet's Send API (v3). You can find the documentation explaining the overall differences and code samples [here](https://dev.mailjet.com/guides/?python#sending-a-basic-email-v3).
+
 ## Create a new Contact
 ``` python
 
