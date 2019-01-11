@@ -1,9 +1,12 @@
-![alt text](https://www.mailjet.com/images/email/transac/logo_header.png "Mailjet")
-
-# Simple Mailjet APIv3 Python Wrapper
-
+[api_credential]: https://app.mailjet.com/account/api_keys
 [doc]: http://dev.mailjet.com/guides/?python#
 [api_doc]: https://github.com/mailjet/api-documentation
+[smsDashboard]: https://app.mailjet.com/sms?_ga=2.81581655.1972348350.1522654521-1279766791.1506937572
+[smsInfo]: https://app.mailjet.com/docs/transactional-sms?_ga=2.183303910.1972348350.1522654521-1279766791.1506937572#trans-sms-token
+
+![alt text](https://www.mailjet.com/images/email/transac/logo_header.png "Mailjet")
+
+# Official Mailjet Python Wrapper
 
 [![Build Status](https://travis-ci.org/mailjet/mailjet-apiv3-python.svg?branch=master)](https://travis-ci.org/mailjet/mailjet-apiv3-python)
 
@@ -21,13 +24,22 @@ All code examples can be found on the [Mailjet Documentation][doc].
 
 ## Getting Started
 
-First, make sure you have an API key, and an API secret.
-Once you got them, save them in your environment:
+Grab your API and Secret Keys [here][api_credential]. You need them for authentication when using the Email API:
 
 ```bash
 export MJ_APIKEY_PUBLIC='your api key'
 export MJ_APIKEY_PRIVATE='your api secret'
 ```
+
+## API Versioning
+
+The Mailjet API is spread among three distinct versions:
+
+- `v3` - The Email API
+- `v3.1` - Email Send API v3.1, which is the latest version of our Send API
+- `v4` - SMS API
+
+Since most Email API endpoints are located under `v3`, it is set as the default one and does not need to be specified when making your request. For the others you need to specify the version using `version`. For example, if using Send API `v3.1`:
 
 ``` python
 # import the mailjet wrapper
@@ -38,11 +50,11 @@ import os
 API_KEY = os.environ['MJ_APIKEY_PUBLIC']
 API_SECRET = os.environ['MJ_APIKEY_PRIVATE']
 
-mailjet = Client(auth=(API_KEY, API_SECRET), version='v3')
+mailjet = Client(auth=(API_KEY, API_SECRET), version='v3.1')
 
 ```
 
-**NOTE**: `version` reflects the API version in the URL (`https://api.mailjet.com/{{ version }}/REST/`). It is `'v3'` by default and can be used to select another API version (for example `v3.1` for the new send API).
+For additional information refer to our [API Reference](https://dev.preprod.mailjet.com/reference/overview/versioning/).
 
 ## Make a `GET` request:
 ``` python
