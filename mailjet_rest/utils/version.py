@@ -1,4 +1,4 @@
-VERSION = (1, 3, 0)
+VERSION = (1, 3, 3)
 
 
 def get_version(version=None):
@@ -10,4 +10,4 @@ def get_version(version=None):
         version = VERSION
     else:
         assert len(version) == 3
-    return '{0}.{1}.{2}'.format(*(x for x in version))
+    return 'v{0}.{1}.{2}'.format(*(x for x in version))

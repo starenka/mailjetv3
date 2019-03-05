@@ -24,6 +24,7 @@ setup(
     url='https://github.com/mailjet/mailjet-apiv3-python',
     description=('Mailjet V3 API wrapper'),
     long_description=long_description,
+    long_description_content_type="text/markdown",
     classifiers=['Development Status :: 4 - Beta',
                  'Environment :: Console',
                  'Intended Audience :: Developers',
