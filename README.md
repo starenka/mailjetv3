@@ -1,13 +1,18 @@
-#Simple Mailjet APIv3 wrapper
-
+[api_credential]: https://app.mailjet.com/account/api_keys
 [doc]: http://dev.mailjet.com/guides/?python#
 [api_doc]: https://github.com/mailjet/api-documentation
+[smsDashboard]: https://app.mailjet.com/sms?_ga=2.81581655.1972348350.1522654521-1279766791.1506937572
+[smsInfo]: https://app.mailjet.com/docs/transactional-sms?_ga=2.183303910.1972348350.1522654521-1279766791.1506937572#trans-sms-token
+
+![alt text](https://www.mailjet.com/images/email/transac/logo_header.png "Mailjet")
+
+# Official Mailjet Python Wrapper
 
 [![Build Status](https://travis-ci.org/mailjet/mailjet-apiv3-python.svg?branch=master)](https://travis-ci.org/mailjet/mailjet-apiv3-python)
 
 ### API documentation
 
-Every code examples can be find on the [Mailjet Documentation][doc]
+All code examples can be found on the [Mailjet Documentation][doc].
 
 (Please refer to the [Mailjet Documentation Repository][api_doc] to contribute to the documentation examples)
 
@@ -19,13 +24,22 @@ Every code examples can be find on the [Mailjet Documentation][doc]
 
 ## Getting Started
 
-First, make sure you have an API key, and an API secret.
-Once you got them, save them in your environment:
+Grab your API and Secret Keys [here][api_credential]. You need them for authentication when using the Email API:
 
-```
+```bash
 export MJ_APIKEY_PUBLIC='your api key'
 export MJ_APIKEY_PRIVATE='your api secret'
 ```
+
+## API Versioning
+
+The Mailjet API is spread among three distinct versions:
+
+- `v3` - The Email API
+- `v3.1` - Email Send API v3.1, which is the latest version of our Send API
+- `v4` - SMS API
+
+Since most Email API endpoints are located under `v3`, it is set as the default one and does not need to be specified when making your request. For the others you need to specify the version using `version`. For example, if using Send API `v3.1`:
 
 ``` python
 # import the mailjet wrapper
@@ -36,21 +50,21 @@ import os
 API_KEY = os.environ['MJ_APIKEY_PUBLIC']
 API_SECRET = os.environ['MJ_APIKEY_PRIVATE']
 
-mailjet = Client(auth=(API_KEY, API_SECRET), version='v3')
+mailjet = Client(auth=(API_KEY, API_SECRET), version='v3.1')
 
 ```
 
-**NOTE**: `version` reflects the api version in the url (`https://api.mailjet.com/{{ version }}/REST/`). It is `'v3'` by default and can be used to select another api version (for example `v3.1` for the new send API).
+For additional information refer to our [API Reference](https://dev.preprod.mailjet.com/reference/overview/versioning/).
 
 ## Make a `GET` request:
 ``` python
-# get every contacts
+# get all contacts
 result = mailjet.contact.get()
 ```
 
 ## `GET` request with filters:
 ``` python
-# get the 2 first contacts
+# get the first 2 contacts
 result = mailjet.contact.get(filters={'limit': 2})
 ```
 ## `POST` request
@@ -61,24 +75,44 @@ result = mailjet.sender.create(data={'email': 'test@mailjet.com'})
 
 ## Combine a resource with an action
 ``` python
-# Get the contact lists of contact #2
+# Get the contacts lists of contact #2
 result = mailjet.contact_getcontactslists.get(id=2)
 ```
 
 ## Send an Email
 ``` python
 
-email = {
-	'FromName': 'Mr Smith',
-	'FromEmail': 'mr@smith.com',
-	'Subject': 'Test Email',
-	'Text-Part': 'Hey there !',
-	'Recipients': [{'Email': 'your email here'}]
+from mailjet_rest import Client
+import os
+api_key = os.environ['MJ_APIKEY_PUBLIC']
+api_secret = os.environ['MJ_APIKEY_PRIVATE']
+mailjet = Client(auth=(api_key, api_secret), version='v3.1')
+data = {
+  'Messages': [
+                {
+                        "From": {
+                                "Email": "pilot@mailjet.com",
+                                "Name": "Mailjet Pilot"
+                        },
+                        "To": [
+                                {
+                                        "Email": "passenger1@mailjet.com",
+                                        "Name": "passenger 1"
+                                }
+                        ],
+                        "Subject": "Your email flight plan!",
+                        "TextPart": "Dear passenger 1, welcome to Mailjet! May the delivery force be with you!",
+                        "HTMLPart": "<h3>Dear passenger 1, welcome to Mailjet!</h3><br />May the delivery force be with you!"
+                }
+        ]
 }
-
-mailjet.send.create(email)
+result = mailjet.send.create(data=data)
+print result.status_code
+print result.json()
 
 ```
+
+You can also use the previous version of Mailjet's Send API (v3). You can find the documentation explaining the overall differences and code samples [here](https://dev.mailjet.com/guides/?python#sending-a-basic-email-v3).
 
 ## Create a new Contact
 ``` python
