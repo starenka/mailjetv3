@@ -23,7 +23,6 @@ class Config(object):
         self.api_url = api_url or self.DEFAULT_API_URL
 
     def __getitem__(self, key):
-        url = self.api_url[0:]
         # Append version to URL.
         # Forward slash is ignored if present in self.version.
         url = urljoin(url, self.version + '/')
