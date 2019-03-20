@@ -7,6 +7,9 @@ from setuptools import find_packages, setup
 HERE = os.path.abspath(os.path.dirname(__file__))
 PACKAGE_NAME = 'mailjet_rest'
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 # Dynamically calculate the version based on mailjet_rest.VERSION.
 version = __import__('mailjet_rest').get_version()
 
@@ -20,13 +23,14 @@ setup(
     download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v' + version,
     url='https://github.com/mailjet/mailjet-apiv3-python',
     description=('Mailjet V3 API wrapper'),
-    classifiers=['Development Status :: 3 - Alpha',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    classifiers=['Development Status :: 4 - Beta',
                  'Environment :: Console',
                  'Intended Audience :: Developers',
                  'License :: OSI Approved :: GNU General Public License (GPL)',
                  'Natural Language :: English',
                  'Operating System :: OS Independent',
-                 'Programming Language :: Python :: 2.6',
                  'Programming Language :: Python :: 2.7',
                  'Programming Language :: Python :: 3.5',
                  'Programming Language :: Python :: 3.6',

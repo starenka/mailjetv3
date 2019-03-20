@@ -12,17 +12,17 @@ requests.packages.urllib3.disable_warnings()
 
 
 class Config(object):
-    API_URL = 'https://api.mailjet.com/'
+    DEFAULT_API_URL = 'https://api.eu.mailjet.com/'
     API_REF = 'http://dev.mailjet.com/email-api/v3/'
     version = 'v3'
     user_agent = 'mailjet-apiv3-python/v' + get_version()
 
-    def __init__(self, version=None):
+    def __init__(self, version=None, api_url=None):
         if version is not None:
             self.version = version
+        self.api_url = api_url or self.DEFAULT_API_URL
 
     def __getitem__(self, key):
-        url = self.API_URL[0:]
         # Append version to URL.
         # Forward slash is ignored if present in self.version.
         url = urljoin(url, self.version + '/')
@@ -75,7 +75,8 @@ class Client(object):
     def __init__(self, auth=None, **kwargs):
         self.auth = auth
         version = kwargs.get('version', None)
-        self.config = Config(version=version)
+        api_url = kwargs.get('api_url', None)
+        self.config = Config(version=version, api_url=api_url)
 
     def __getattr__(self, name):
         split = name.split('_')
