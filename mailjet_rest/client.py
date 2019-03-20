@@ -25,7 +25,7 @@ class Config(object):
     def __getitem__(self, key):
         # Append version to URL.
         # Forward slash is ignored if present in self.version.
-        url = urljoin(url, self.version + '/')
+        url = urljoin(self.api_url, self.version + '/')
         headers = {'Content-type': 'application/json', 'User-agent': self.user_agent}
         if key.lower() == 'contactslist_csvdata':
             url = urljoin(url, 'DATA/')
