@@ -56,6 +56,16 @@ mailjet = Client(auth=(API_KEY, API_SECRET), version='v3.1')
 
 For additional information refer to our [API Reference](https://dev.preprod.mailjet.com/reference/overview/versioning/).
 
+### Base URL
+
+The default base domain name for the Mailjet API is `api.mailjet.com`. You can modify this base URL by setting a value for `api_url` in your call:
+
+```python
+mailjet = Client(auth=(api_key, api_secret),api_url="https://api.us.mailjet.com/")
+```
+
+If your account has been moved to Mailjet's **US architecture**, the URL value you need to set is `https://api.us.mailjet.com`.
+
 ## Make a `GET` request:
 ``` python
 # get all contacts
