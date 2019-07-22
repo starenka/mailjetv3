@@ -1,4 +1,5 @@
-[mailjet](http://www.mailjet.com/)
+
+[mailjet]:(http://www.mailjet.com/)
 [api_credential]: https://app.mailjet.com/account/api_keys
 [doc]: http://dev.mailjet.com/guides/?python#
 [api_doc]: https://github.com/mailjet/api-documentation
