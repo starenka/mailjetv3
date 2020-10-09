@@ -82,7 +82,7 @@ class TestSuite(unittest.TestCase):
         self.assertEqual(self.client.config.version, 'v3.1')
         self.assertEqual(
             self.client.config['send'][0],
-            'https://api.eu.mailjet.com/v3.1/send'
+            'https://api.mailjet.com/v3.1/send'
         )
 
     def test_user_agent(self):
