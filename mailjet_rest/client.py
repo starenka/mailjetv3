@@ -12,7 +12,7 @@ requests.packages.urllib3.disable_warnings()
 
 
 class Config(object):
-    DEFAULT_API_URL = 'https://api.eu.mailjet.com/'
+    DEFAULT_API_URL = 'https://api.mailjet.com/'
     API_REF = 'http://dev.mailjet.com/email-api/v3/'
     version = 'v3'
     user_agent = 'mailjet-apiv3-python/v' + get_version()
