@@ -100,7 +100,10 @@ def api_call(auth, method, url, headers, data=None, filters=None, resource_id=No
     req_method = getattr(requests, method)
 
     try:
-        response = req_method(url, data=data, params=filters, headers=headers, auth=auth,
+        filters_str = None
+        if filters:
+            filters_str = "&".join("%s=%s" % (k, v) for k, v in filters.items())
+        response = req_method(url, data=data, params=filters_str, headers=headers, auth=auth,
                               timeout=timeout, verify=True, stream=False)
         return response
 
