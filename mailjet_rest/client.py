@@ -33,7 +33,7 @@ class Config(object):
         elif key.lower() == 'batchjob_csverror':
             url = urljoin(url, 'DATA/')
             headers['Content-type'] = 'text/csv'
-        elif key.lower() != 'send':
+        elif key.lower() != 'send' and self.version != 'v4':
             url = urljoin(url, 'REST/')
         url = url + key.split('_')[0].lower()
         return url, headers
