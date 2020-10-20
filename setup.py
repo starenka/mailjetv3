@@ -11,16 +11,16 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 # Dynamically calculate the version based on mailjet_rest.VERSION.
-version = __import__('mailjet_rest').get_version()
+version = "latest"
 
 setup(
     name=PACKAGE_NAME,
-    version=version,
     author='starenka',
     author_email='starenka0@gmail.com',
     maintainer='Mailjet',
     maintainer_email='api@mailjet.com',
-    download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/tag/v' + version,
+    version="latest",
+    download_url='https://github.com/mailjet/mailjet-apiv3-python/releases/' + version,
     url='https://github.com/mailjet/mailjet-apiv3-python',
     description=('Mailjet V3 API wrapper'),
     long_description=long_description,
