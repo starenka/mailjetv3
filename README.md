@@ -32,7 +32,8 @@ Check out all the resources and Python code examples in the official [Mailjet Do
     - [Using actions](#using-actions)
   - [GET request](#get-request)
     - [Retrieve all objects](#retrieve-all-objects)
-    - [Use filtering](#use-filtering)
+    - [Using filtering](#using-filtering)
+    - [Using pagination](#using-pagination)
     - [Retrieve a single object](#retrieve-a-single-object)
   - [PUT request](#put-request)
   - [DELETE request](#delete-request)
@@ -234,6 +235,30 @@ filters = {
 result = mailjet.contact.get(filters=filters)
 print result.status_code
 print result.json()
+```
+
+#### Using pagination
+
+Pagination can be used when API returns Data as array type.
+There is 2 options: `limit` and `offset`.
+You can find such request example [here](https://dev.mailjet.com/email/reference/contacts/contact/#v3_get_contact).
+Next example returns 40 contacts starting from 50 record:
+
+```python
+import os
+from mailjet_rest import Client
+
+api_key = os.environ["MJ_APIKEY_PUBLIC"]
+api_secret = os.environ["MJ_APIKEY_PRIVATE"]
+mailjet = Client(auth=(api_key, api_secret))
+
+filters = {
+    "limit": 40,
+    "offset": 50,
+}
+result = mailjet.contact.get(filters=filters)
+print(result.status_code)
+print(result.json())
 ```
 
 #### Retrieve a single object
