@@ -239,10 +239,10 @@ print result.json()
 
 #### Using pagination
 
-Pagination can be used when API returns Data as array type.
-There is 2 options: `limit` and `offset`.
-You can find such request example [here](https://dev.mailjet.com/email/reference/contacts/contact/#v3_get_contact).
-Next example returns 40 contacts starting from 50 record:
+Some requests (for example [GET /contact](https://dev.mailjet.com/email/reference/contacts/contact/#v3_get_contact)) has `limit` and `offset` query string parameters. These parameters could be used for pagination.
+`limit` `int` Limit the response to a select number of returned objects. Default value: `10`. Maximum value: `1000`
+`offset` `int` Retrieve a list of objects starting from a certain offset. Combine this query parameter with Limit to retrieve a specific section of the list of objects. Default value: `0`
+Next example returns 40 contacts starting from 51th record:
 
 ```python
 import os
