@@ -26,6 +26,7 @@ Check out all the resources and Python code examples in the official [Mailjet Do
 - [Client / Call configuration specifics](#client--call-configuration-specifics)
   - [API versioning](#api-versioning)
   - [Base URL](#base-url)
+  - [URL path](#url-path)
 - [Request examples](#request-examples)
   - [POST request](#post-request)
     - [Simple POST request](#simple-post-request)
@@ -146,6 +147,22 @@ mailjet = Client(auth=(api_key, api_secret),api_url="https://api.us.mailjet.com/
 ```
 
 If your account has been moved to Mailjet's **US architecture**, the URL value you need to set is `https://api.us.mailjet.com`.
+
+### URL path
+
+According to python special characters limitations we can't use slashes `/` and dashes `-` which is acceptable for URL path building. Instead python client uses another way for path building. You should replase slashes `/` by underscore `_` and dashes `-` by capitalizing next letter in path.
+For example, to reach `statistics/link-click` path you should call `statistics_linkClick` attribute of python client.
+
+```python
+# GET `statistics/link-click`
+mailjet = Client(auth=(api_key, api_secret))
+filters = {
+  'CampaignId': 'xxxxxxx'
+}
+result = mailjet.statistics_linkClick.get(filters=filters)
+print result.status_code
+print result.json()
+``` 
 
 ## Request examples
 
