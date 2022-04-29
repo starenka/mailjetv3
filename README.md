@@ -32,7 +32,8 @@ Check out all the resources and Python code examples in the official [Mailjet Do
     - [Using actions](#using-actions)
   - [GET request](#get-request)
     - [Retrieve all objects](#retrieve-all-objects)
-    - [Use filtering](#use-filtering)
+    - [Using filtering](#using-filtering)
+    - [Using pagination](#using-pagination)
     - [Retrieve a single object](#retrieve-a-single-object)
   - [PUT request](#put-request)
   - [DELETE request](#delete-request)
@@ -234,6 +235,32 @@ filters = {
 result = mailjet.contact.get(filters=filters)
 print result.status_code
 print result.json()
+```
+
+#### Using pagination
+
+Some requests (for example [GET /contact](https://dev.mailjet.com/email/reference/contacts/contact/#v3_get_contact)) has `limit`, `offset` and `sort` query string parameters. These parameters could be used for pagination.
+`limit` `int` Limit the response to a select number of returned objects. Default value: `10`. Maximum value: `1000`
+`offset` `int` Retrieve a list of objects starting from a certain offset. Combine this query parameter with `limit` to retrieve a specific section of the list of objects. Default value: `0`
+`sort` `str` Sort the results by a property and select ascending (ASC) or descending (DESC) order. The default order is ascending. Keep in mind that this is not available for all properties. Default value: `ID asc`
+Next example returns 40 contacts starting from 51th record sorted by `Email` field descendally:
+
+```python
+import os
+from mailjet_rest import Client
+
+api_key = os.environ["MJ_APIKEY_PUBLIC"]
+api_secret = os.environ["MJ_APIKEY_PRIVATE"]
+mailjet = Client(auth=(api_key, api_secret))
+
+filters = {
+    "limit": 40,
+    "offset": 50,
+    "sort": "Email desc",
+}
+result = mailjet.contact.get(filters=filters)
+print(result.status_code)
+print(result.json())
 ```
 
 #### Retrieve a single object
