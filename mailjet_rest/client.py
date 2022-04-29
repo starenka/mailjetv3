@@ -3,12 +3,20 @@
 
 import json
 import logging
+import re
 
 import requests
 from requests.compat import urljoin
 from .utils.version import get_version
 
 requests.packages.urllib3.disable_warnings()
+
+
+def prepare_url(key: str):
+    """Replaces capital letters to lower one with dash prefix."""
+    char_elem = key.group(0)
+    if char_elem.isupper():
+        return '-' + char_elem.lower()
 
 
 class Config(object):
@@ -79,6 +87,7 @@ class Client(object):
         self.config = Config(version=version, api_url=api_url)
 
     def __getattr__(self, name):
+        name = re.sub(r"[A-Z]", prepare_url, name)
         split = name.split('_')
         #identify the resource
         fname = split[0]
