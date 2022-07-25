@@ -45,7 +45,6 @@ def stats_for_clicked_links():
     filters = {
         "CampaignId": "$Campaign_ID"
     }
-    # TODO Outdated in doc.
     return mailjet30.statistics_linkClick.get(filters=filters)
 
 
@@ -54,7 +53,6 @@ def mailbox_provider_statistics():
     filters = {
         "CampaignId": "$Campaign_ID"
     }
-    # TODO Outdated in doc.
     return mailjet30.statistics_recipientEsp.get(filters=filters)
 
 
