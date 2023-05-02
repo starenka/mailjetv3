@@ -12,7 +12,7 @@ from .utils.version import get_version
 requests.packages.urllib3.disable_warnings()
 
 
-def prepare_url(key: str):
+def prepare_url(key):
     """Replaces capital letters to lower one with dash prefix."""
     char_elem = key.group(0)
     if char_elem.isupper():

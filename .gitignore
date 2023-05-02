@@ -31,3 +31,4 @@ junit*
 build/
 dist/
 venv/
+.idea/
