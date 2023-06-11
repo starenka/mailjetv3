@@ -46,7 +46,7 @@ This library officially supports the following Python versions:
 
  - v2.7
  - v3.5
- - v3.6
+ - v3.6+
 
 ## Installation
 
