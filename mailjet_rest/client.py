@@ -139,13 +139,12 @@ def build_headers(resource, action=None, extra_headers=None):
 
 
 def build_url(url, method, action=None, resource_id=None, action_id=None):
-    if resource_id:
-        url += '/%s' % str(resource_id)
     if action:
         url += '/%s' % action
         if action_id:
             url += '/{}'.format(action_id)
-
+    if resource_id:
+        url += '/%s' % str(resource_id)
     return url
 
 
