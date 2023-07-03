@@ -64,14 +64,20 @@ class Endpoint(object):
     def get(self, id=None, filters=None, action_id=None, **kwargs):
         return self._get(id=id, filters=filters, action_id=action_id, **kwargs)
 
-    def create(self, data=None, filters=None, id=None, action_id=None, **kwargs):
+    def create(self, data=None, filters=None, id=None, action_id=None, ensure_ascii=True, data_encoding="utf-8", **kwargs):
         if self.headers['Content-type'] == 'application/json':
-            data = json.dumps(data)
+            if ensure_ascii:
+                data = json.dumps(data)
+            else:
+                data = json.dumps(data, ensure_ascii=False).encode(data_encoding)
         return api_call(self._auth, 'post', self._url, headers=self.headers, resource_id=id, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
-    def update(self, id, data, filters=None, action_id=None, **kwargs):
+    def update(self, id, data, filters=None, action_id=None, ensure_ascii=True, data_encoding="utf-8", **kwargs):
         if self.headers['Content-type'] == 'application/json':
-            data = json.dumps(data)
+            if ensure_ascii:
+                data = json.dumps(data)
+            else:
+                data = json.dumps(data, ensure_ascii=False).encode(data_encoding)
         return api_call(self._auth, 'put', self._url, resource_id=id, headers=self.headers, data=data, action=self.action, action_id=action_id, filters=filters, **kwargs)
 
     def delete(self, id, **kwargs):
